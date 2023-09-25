@@ -40,11 +40,21 @@ function App() {
             <ul>
               {recipe.ingredients.map((ingredient, index) => (
                 <li
-                  key={index}
-                  style={{ color: ingredient.name.includes(ingredients) ? 'green' : 'red' }}
-                >
-                  {ingredient.original}
-                </li>
+                key={index}
+                style={{
+                  color: ingredients
+                    .split(',')
+                    .some(userIngredient =>
+                      ingredient.name
+                        .split(',')
+                        .some(recipeIngredient => recipeIngredient.trim().includes(userIngredient.trim()))
+                    )
+                    ? 'green'
+                    : 'red',
+                }}
+              >
+                {ingredient.original}
+              </li>
               ))}
             </ul>
           </li>
